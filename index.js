@@ -2,7 +2,8 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const axios  = require("axios")
 const {scraping} = require("./src/generalControllerss.js")
-const  port = 3001 || PORT.env
+const { PORT } = process.env;
+server.listen(PORT, () => console.log(`Listen on port ${PORT}`))
 
 // sync todos los modelos de una vez;
 

@@ -3,12 +3,18 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST,
+  DATABASE_URL
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pluggy`, {
+const sequelize = new Sequelize(DATABASE_URL, {
   logging: false, // saco todo el texto de el levanado del back
   native: false, //Poder utilizar pg-native for ~30% mas velocidad. Aeroventilas ;)
+  dialectOptions: { // Config adicional fuera de local host
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
 });
 const basename = path.basename(__filename);
 
